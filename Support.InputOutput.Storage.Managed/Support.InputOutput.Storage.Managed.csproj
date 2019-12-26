@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <FileUpgradeFlags>40</FileUpgradeFlags>
+    <UpgradeBackupLocation>D:\Development\Projects\Support\Backup\Support.InputOutput.Storage.Managed\</UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>D:\Development\Projects\Support\Support.InputOutput.Storage.Managed\Support.InputOutput.Storage.Managed.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Support.InputOutput.Storage\Support.InputOutput.Storage.csproj" />
+    <ProjectReference Include="..\Support\Support.csproj" />
+  </ItemGroup>
+</Project>

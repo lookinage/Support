@@ -1,0 +1,428 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Support.InputOutput.Communication.RemoteProcedureCall</name>
+    </assembly>
+    <members>
+        <member name="T:Support.InputOutput.Communication.RemoteProcedureCall.Connection`2">
+            <summary>
+            Represents a connection that provides remote procedure calling.
+            </summary>
+            <typeparam name="TIPEndPoint">The type of IP endpoints.</typeparam>
+            <typeparam name="TData">The type of connection data.</typeparam>
+        </member>
+        <member name="F:Support.InputOutput.Communication.RemoteProcedureCall.Connection`2.Data">
+            <summary>
+            The data of the connection.
+            </summary>
+        </member>
+        <member name="M:Support.InputOutput.Communication.RemoteProcedureCall.Connection`2.#ctor(Support.InputOutput.Communication.RemoteProcedureCall.LocalEndPoint{`0,`1},`0,`0)">
+            <summary>
+            Initializes the <see cref="T:Support.InputOutput.Communication.RemoteProcedureCall.Connection`2"/>.
+            </summary>
+            <param name="localEndPoint">A local endpoint to associate with the connection.</param>
+            <param name="localIPEndPoint">An IP endpoint to associate with a <see cref="T:System.Net.Sockets.Socket"/> to provide the connection.</param>
+            <param name="remoteIPEndPoint">An IP endpoint of the remote host to connect.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="localEndPoint"/> is <see langword="null"/>.</exception>
+        </member>
+        <member name="P:Support.InputOutput.Communication.RemoteProcedureCall.Connection`2.Connected">
+            <summary>
+            Gets a value that indicates whether the connection is working.
+            </summary>
+        </member>
+        <member name="P:Support.InputOutput.Communication.RemoteProcedureCall.Connection`2.LocalIPEndPoint">
+            <summary>
+            Gets the local IP endpoint of the connection.
+            </summary>
+        </member>
+        <member name="P:Support.InputOutput.Communication.RemoteProcedureCall.Connection`2.RemoteIPEndPoint">
+            <summary>
+            Gets the remote IP endpoint of the connection.
+            </summary>
+        </member>
+        <member name="P:Support.InputOutput.Communication.RemoteProcedureCall.Connection`2.ReceiveBufferSize">
+            <summary>
+            Gets or sets a value of <see cref="P:System.Net.Sockets.Socket.ReceiveBufferSize"/> property of the <see cref="T:System.Net.Sockets.Socket"/> used by the connection.
+            </summary>
+            <exception cref="T:System.ArgumentOutOfRangeException">The specified value is less than 0.</exception>
+        </member>
+        <member name="P:Support.InputOutput.Communication.RemoteProcedureCall.Connection`2.SendBufferSize">
+            <summary>
+            Gets or sets a value of <see cref="P:System.Net.Sockets.Socket.SendBufferSize"/> property of the <see cref="T:System.Net.Sockets.Socket"/> used by the connection.
+            </summary>
+            <exception cref="T:System.ArgumentOutOfRangeException">The specified value is less than 0.</exception>
+        </member>
+        <member name="E:Support.InputOutput.Communication.RemoteProcedureCall.Connection`2.Lost">
+            <summary>
+            Occurs when the connection is lost.
+            </summary>
+        </member>
+        <member name="M:Support.InputOutput.Communication.RemoteProcedureCall.Connection`2.Receive">
+            <summary>
+            Allows to receive remote procedure calls.
+            </summary>
+            <exception cref="T:System.ObjectDisposedException">The <see cref="T:Support.InputOutput.Communication.Connection"/> has been closed.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Communication.RemoteProcedureCall.Connection`2.Call(Support.InputOutput.Communication.RemoteProcedureCall.RemoteProcedure)">
+            <summary>
+            Invokes a procedure on a remote endpoint of the connection.
+            </summary>
+            <param name="procedure">The procedure that is to be called on the remote endpoint of the connection.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="procedure"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ObjectDisposedException">The <see cref="T:Support.InputOutput.Communication.Connection"/> has been closed.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Communication.RemoteProcedureCall.Connection`2.Call``1(Support.InputOutput.Communication.RemoteProcedureCall.RemoteProcedure{``0},``0)">
+            <summary>
+            Invokes a procedure on a remote endpoint of the connection passing a specified argument.
+            </summary>
+            <typeparam name="T">The type of an argument that is passed for the procedure execution.</typeparam>
+            <param name="procedure">The procedure that is to be called on the remote endpoint of the connection.</param>
+            <param name="argument">An argument that is passed for the remote procedure execution.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="procedure"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ObjectDisposedException">The <see cref="T:Support.InputOutput.Communication.Connection"/> has been closed.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Communication.RemoteProcedureCall.Connection`2.Close">
+            <summary>
+            Closes the connection and releases all resources used by the <see cref="T:Support.InputOutput.Communication.RemoteProcedureCall.Connection`2"/>.
+            </summary>
+        </member>
+        <member name="T:Support.InputOutput.Communication.RemoteProcedureCall.ConnectionAcceptedEventArgument`2">
+            <summary>
+            Provides data for the <see cref="E:Support.InputOutput.Communication.RemoteProcedureCall.Listener`2.Accepted"/> event.
+            </summary>
+            <typeparam name="TIPEndPoint">The type of IP endpoints.</typeparam>
+            <typeparam name="TData">The type of connection data.</typeparam>
+        </member>
+        <member name="F:Support.InputOutput.Communication.RemoteProcedureCall.ConnectionAcceptedEventArgument`2.Connection">
+            <summary>
+            The accepted connection.
+            </summary>
+        </member>
+        <member name="M:Support.InputOutput.Communication.RemoteProcedureCall.ConnectionAcceptedEventArgument`2.#ctor(Support.InputOutput.Communication.RemoteProcedureCall.Connection{`0,`1})">
+            <summary>
+            Initializes the <see cref="T:Support.InputOutput.Communication.RemoteProcedureCall.ConnectionAcceptedEventArgument`2"/>.
+            </summary>
+            <param name="connection">The accepted connection.</param>
+        </member>
+        <member name="T:Support.InputOutput.Communication.RemoteProcedureCall.ConnectionLostError">
+            <summary>
+            Defines connection lost error codes for the <see cref="T:Support.InputOutput.Communication.RemoteProcedureCall.Connection`2"/>.
+            </summary>
+        </member>
+        <member name="F:Support.InputOutput.Communication.RemoteProcedureCall.ConnectionLostError.None">
+            <summary>
+            Specifies the connection is lost because of it was manually closed.
+            </summary>
+        </member>
+        <member name="F:Support.InputOutput.Communication.RemoteProcedureCall.ConnectionLostError.SocketError">
+            <summary>
+            Specifies the connection is lost because of a socket error.
+            </summary>
+        </member>
+        <member name="F:Support.InputOutput.Communication.RemoteProcedureCall.ConnectionLostError.LocalProcedureNotFound">
+            <summary>
+            Specifies the connection is lost because of there is no local procedure with the received procedure key.
+            </summary>
+        </member>
+        <member name="F:Support.InputOutput.Communication.RemoteProcedureCall.ConnectionLostError.LocalProcedureArgumentLength">
+            <summary>
+            Specifies the connection is lost because of the length of the received argument to call a local procedure is out of range.
+            </summary>
+        </member>
+        <member name="F:Support.InputOutput.Communication.RemoteProcedureCall.ConnectionLostError.LocalProcedureArgumentDeserialization">
+            <summary>
+            Specifies the connection is lost because of the received argument to call a local procedure failed to be deserialized.
+            </summary>
+        </member>
+        <member name="F:Support.InputOutput.Communication.RemoteProcedureCall.ConnectionLostError.LocalProcedureArgumentValidation">
+            <summary>
+            Specifies the connection is lost because of the received argument to call a local procedure is invalid.
+            </summary>
+        </member>
+        <member name="T:Support.InputOutput.Communication.RemoteProcedureCall.ConnectionLostEventArgument">
+            <summary>
+            Provides data for the <see cref="E:Support.InputOutput.Communication.RemoteProcedureCall.Connection`2.Lost"/> event.
+            </summary>
+        </member>
+        <member name="F:Support.InputOutput.Communication.RemoteProcedureCall.ConnectionLostEventArgument.Error">
+            <summary>
+            The <see cref="T:Support.InputOutput.Communication.RemoteProcedureCall.ConnectionLostError"/> because of which the connection has been closed.
+            </summary>
+        </member>
+        <member name="F:Support.InputOutput.Communication.RemoteProcedureCall.ConnectionLostEventArgument.SocketError">
+            <summary>
+            The <see cref="T:System.Net.Sockets.SocketError"/> because of which the connection has been lost.
+            </summary>
+        </member>
+        <member name="M:Support.InputOutput.Communication.RemoteProcedureCall.ConnectionLostEventArgument.#ctor(Support.InputOutput.Communication.RemoteProcedureCall.ConnectionLostError,System.Net.Sockets.SocketError)">
+            <summary>
+            Initializes the <see cref="T:Support.InputOutput.Communication.ConnectionAcceptedEventArgument"/>.
+            </summary>
+            <param name="error">The <see cref="T:Support.InputOutput.Communication.RemoteProcedureCall.ConnectionLostError"/> because of which the connection has been closed.</param>
+            <param name="socketError">The <see cref="T:System.Net.Sockets.SocketError"/> because of which the connection has been lost.</param>
+        </member>
+        <member name="T:Support.InputOutput.Communication.RemoteProcedureCall.IPv4Listener`1">
+            <summary>
+            Represents an implementation of the <see cref="T:Support.InputOutput.Communication.RemoteProcedureCall.Listener`2"/> class that uses IPv4.
+            </summary>
+            <typeparam name="TData">The type of connection data.</typeparam>
+        </member>
+        <member name="M:Support.InputOutput.Communication.RemoteProcedureCall.IPv4Listener`1.#ctor(Support.InputOutput.Communication.RemoteProcedureCall.LocalEndPoint{Support.InputOutput.Communication.IPv4EndPoint,`0},Support.InputOutput.Communication.IPv4EndPoint)">
+            <summary>
+            Initializes the <see cref="T:Support.InputOutput.Communication.RemoteProcedureCall.Listener`2"/>.
+            </summary>
+            <param name="localEndPoint">A local endpoint to associate with accepted connections.</param>
+            <param name="localIPEndPoint">An IP endpoint to associate with a <see cref="T:System.Net.Sockets.Socket"/> to listen incoming connections.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="localEndPoint"/> is <see langword="null"/>.</exception>
+        </member>
+        <member name="T:Support.InputOutput.Communication.RemoteProcedureCall.IPv4LocalEndPoint`1">
+            <summary>
+            Represents an implementation of the <see cref="T:Support.InputOutput.Communication.RemoteProcedureCall.LocalEndPoint`2"/> class that uses IPv4.
+            </summary>
+            <typeparam name="TData">The type of connection data.</typeparam>
+        </member>
+        <member name="M:Support.InputOutput.Communication.RemoteProcedureCall.IPv4LocalEndPoint`1.#ctor">
+            <summary>
+            Initializes the <see cref="T:Support.InputOutput.Communication.RemoteProcedureCall.LocalEndPoint`2"/>.
+            </summary>
+        </member>
+        <member name="T:Support.InputOutput.Communication.RemoteProcedureCall.IPv4LocalProcedure`1">
+            <summary>
+            Represents a local procedure that has no parameters.
+            </summary>
+            <typeparam name="TData">The type of connection data.</typeparam>
+        </member>
+        <member name="M:Support.InputOutput.Communication.RemoteProcedureCall.IPv4LocalProcedure`1.#ctor(System.Boolean,Support.InputOutput.Communication.RemoteProcedureCall.LocalProcedureAction{Support.InputOutput.Communication.IPv4EndPoint,`0})">
+            <summary>
+            Initializes the <see cref="T:Support.InputOutput.Communication.RemoteProcedureCall.IPv4LocalProcedure`1"/>.
+            </summary>
+            <param name="sync">If <see langword="true"/> and <see cref="P:System.Threading.SynchronizationContext.Current"/> existed when a local endpoint initializes the procedure is invoked in the <see cref="T:System.Threading.SynchronizationContext"/>; otherwise, the procedure is invoked asynchronously.</param>
+            <param name="action">An action that executes when the procedure is called.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="action"/> is <see langword="null"/>.</exception>
+        </member>
+        <member name="T:Support.InputOutput.Communication.RemoteProcedureCall.IPv4LocalProcedure`2">
+            <summary>
+            Represents a local procedure that has one parameter.
+            </summary>
+            <typeparam name="TData">The type of connection data.</typeparam>
+            <typeparam name="T">The type of an argument that is passed for the procedure execution.</typeparam>
+        </member>
+        <member name="M:Support.InputOutput.Communication.RemoteProcedureCall.IPv4LocalProcedure`2.#ctor(System.Boolean,Support.InputOutput.Communication.RemoteProcedureCall.ParameterizedLocalProcedureAction{Support.InputOutput.Communication.IPv4EndPoint,`0,`1},Support.Coding.Serialization.ISerializer{`1},System.Func{`1,System.Boolean},System.Int32,System.Int32)">
+            <summary>
+            Initializes the <see cref="T:Support.InputOutput.Communication.RemoteProcedureCall.IPv4LocalProcedure`2"/>.
+            </summary>
+            <param name="sync">If <see langword="true"/> and <see cref="P:System.Threading.SynchronizationContext.Current"/> existed when a local endpoint initializes the procedure is invoked in the <see cref="T:System.Threading.SynchronizationContext"/>; otherwise, the procedure is invoked asynchronously.</param>
+            <param name="action">An action that executes when the procedure is called.</param>
+            <param name="argumentSerializer">An <see cref="T:Support.Coding.Serialization.ISerializer`1"/> to deserialize an argument for the local procedure execution.</param>
+            <param name="argumentValidator">A method to define whether a received argument is valid. If <see langword="true"/> a connection remote endpoint sends an invalid argument the connection would be disconnected.</param>
+            <param name="minArgumentLength">The minimum length of an argument to receive. If <see langword="true"/> a connection remote endpoint sends an argument which length is less than a specified value the connection would be disconnected.</param>
+            <param name="maxArgumentLength">The maximum length of an argument to receive. If <see langword="true"/> a connection remote endpoint sends an argument which length is greater than a specified value the connection would be disconnected.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="action"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="argumentSerializer"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="minArgumentLength"/> is less than 0.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="maxArgumentLength"/> is less than <paramref name="minArgumentLength"/>.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Communication.RemoteProcedureCall.IPv4LocalProcedure`2.#ctor(System.Boolean,Support.InputOutput.Communication.RemoteProcedureCall.ParameterizedLocalProcedureAction{Support.InputOutput.Communication.IPv4EndPoint,`0,`1},Support.Coding.Serialization.ISerializer{`1},System.Func{`1,System.Boolean})">
+            <summary>
+            Initializes the <see cref="T:Support.InputOutput.Communication.RemoteProcedureCall.IPv4LocalProcedure`2"/>.
+            </summary>
+            <param name="sync">If <see langword="true"/> and <see cref="P:System.Threading.SynchronizationContext.Current"/> existed when a local endpoint initializes the procedure is invoked in the <see cref="T:System.Threading.SynchronizationContext"/>; otherwise, the procedure is invoked asynchronously.</param>
+            <param name="action">An action that executes when the procedure is called.</param>
+            <param name="argumentSerializer">An <see cref="T:Support.Coding.Serialization.ISerializer`1"/> to deserialize an argument for the local procedure execution.</param>
+            <param name="argumentValidator">A method to define whether a received argument is valid. If <see langword="true"/> a connection remote endpoint sends an invalid argument the connection would be disconnected.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="action"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="argumentSerializer"/> is <see langword="null"/>.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Communication.RemoteProcedureCall.IPv4LocalProcedure`2.#ctor(System.Boolean,Support.InputOutput.Communication.RemoteProcedureCall.ParameterizedLocalProcedureAction{Support.InputOutput.Communication.IPv4EndPoint,`0,`1},Support.Coding.Serialization.ISerializer{`1})">
+            <summary>
+            Initializes the <see cref="T:Support.InputOutput.Communication.RemoteProcedureCall.IPv4LocalProcedure`2"/>.
+            </summary>
+            <param name="sync">If <see langword="true"/> and <see cref="P:System.Threading.SynchronizationContext.Current"/> existed when a local endpoint initializes the procedure is invoked in the <see cref="T:System.Threading.SynchronizationContext"/>; otherwise, the procedure is invoked asynchronously.</param>
+            <param name="action">An action that executes when the procedure is called.</param>
+            <param name="argumentSerializer">An <see cref="T:Support.Coding.Serialization.ISerializer`1"/> to deserialize an argument for the local procedure execution.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="action"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentNullException"> <paramref name="argumentSerializer"/> is <see langword="null"/>.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Communication.RemoteProcedureCall.IPv4LocalProcedure`2.#ctor(System.Boolean,Support.InputOutput.Communication.RemoteProcedureCall.ParameterizedLocalProcedureAction{Support.InputOutput.Communication.IPv4EndPoint,`0,`1},Support.Coding.Serialization.IConstantLengthSerializer{`1},System.Func{`1,System.Boolean})">
+            <summary>
+            Initializes the <see cref="T:Support.InputOutput.Communication.RemoteProcedureCall.IPv4LocalProcedure`2"/>.
+            </summary>
+            <param name="sync">If <see langword="true"/> and <see cref="P:System.Threading.SynchronizationContext.Current"/> existed when a local endpoint initializes the procedure is invoked in the <see cref="T:System.Threading.SynchronizationContext"/>; otherwise, the procedure is invoked asynchronously.</param>
+            <param name="action">An action that executes when the procedure is called.</param>
+            <param name="argumentSerializer">An <see cref="T:Support.Coding.Serialization.IConstantLengthSerializer`1"/> to deserialize an argument for the local procedure execution.</param>
+            <param name="argumentValidator">A method to define whether a received argument is valid. If <see langword="true"/> a connection remote endpoint sends an invalid argument the connection would be disconnected.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="action"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="argumentSerializer"/> is <see langword="null"/>.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Communication.RemoteProcedureCall.IPv4LocalProcedure`2.#ctor(System.Boolean,Support.InputOutput.Communication.RemoteProcedureCall.ParameterizedLocalProcedureAction{Support.InputOutput.Communication.IPv4EndPoint,`0,`1},Support.Coding.Serialization.IConstantLengthSerializer{`1})">
+            <summary>
+            Initializes the <see cref="T:Support.InputOutput.Communication.RemoteProcedureCall.IPv4LocalProcedure`2"/>.
+            </summary>
+            <param name="sync">If <see langword="true"/> and <see cref="P:System.Threading.SynchronizationContext.Current"/> existed when a local endpoint initializes the procedure is invoked in the <see cref="T:System.Threading.SynchronizationContext"/>; otherwise, the procedure is invoked asynchronously.</param>
+            <param name="action">An action that executes when the procedure is called.</param>
+            <param name="argumentSerializer">An <see cref="T:Support.Coding.Serialization.IConstantLengthSerializer`1"/> to deserialize an argument for the local procedure execution.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="action"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="argumentSerializer"/> is <see langword="null"/>.</exception>
+        </member>
+        <member name="T:Support.InputOutput.Communication.RemoteProcedureCall.Listener`2">
+            <summary>
+            Represents a network local endpoint that invokes remote procedures on a remote endpoint and executes local procedures which are invoked by a remote endpoint.
+            </summary>
+            <typeparam name="TIPEndPoint">The type of IP endpoints.</typeparam>
+            <typeparam name="TData">The type of connection data.</typeparam>
+        </member>
+        <member name="M:Support.InputOutput.Communication.RemoteProcedureCall.Listener`2.#ctor(Support.InputOutput.Communication.RemoteProcedureCall.LocalEndPoint{`0,`1},`0)">
+            <summary>
+            Initializes the <see cref="T:Support.InputOutput.Communication.RemoteProcedureCall.Listener`2"/>.
+            </summary>
+            <param name="localEndPoint">A local endpoint to associate with accepted connections.</param>
+            <param name="localIPEndPoint">An IP endpoint to associate with a <see cref="T:System.Net.Sockets.Socket"/> to listen incoming connections.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="localEndPoint"/> is <see langword="null"/>.</exception>
+        </member>
+        <member name="E:Support.InputOutput.Communication.RemoteProcedureCall.Listener`2.Accepted">
+            <summary>
+            Occurs when a connection is accepted.
+            </summary>
+        </member>
+        <member name="M:Support.InputOutput.Communication.RemoteProcedureCall.Listener`2.Listen(System.Int32)">
+            <summary>
+            Places the <see cref="T:Support.InputOutput.Communication.RemoteProcedureCall.Listener`2"/> in a listening state.
+            </summary>
+            <param name="backlog">The maximum length of the pending connection queue.</param>
+            <exception cref="T:System.ObjectDisposedException">The <see cref="T:Support.InputOutput.Communication.RemoteProcedureCall.Listener`2"/> has been closed.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Communication.RemoteProcedureCall.Listener`2.Close">
+            <summary>
+            Stops accepting of connections and closes all accepted connections.
+            </summary>
+        </member>
+        <member name="T:Support.InputOutput.Communication.RemoteProcedureCall.LocalEndPoint`2">
+            <summary>
+            Represents a local endpoint that consists of local procedures which would be invoked by a remote endpoint.
+            </summary>
+            <typeparam name="TIPEndPoint">The type of IP endpoints.</typeparam>
+            <typeparam name="TData">The type of connection data.</typeparam>
+        </member>
+        <member name="M:Support.InputOutput.Communication.RemoteProcedureCall.LocalEndPoint`2.#ctor(System.Func{System.Net.IPEndPoint,`0},Support.Coding.Serialization.IConstantLengthSerializer{`0})">
+            <summary>
+            Initializes the <see cref="T:Support.InputOutput.Communication.RemoteProcedureCall.LocalEndPoint`2"/>.
+            </summary>
+            <param name="ipEndPointConverter">A method to convert <see cref="T:System.Net.IPEndPoint"/> instances to <typeparamref name="TIPEndPoint"/> type.</param>
+            <param name="ipEndPointSerializer">An <see cref="T:Support.Coding.Serialization.IConstantLengthSerializer`1"/> of IP endpoints.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="ipEndPointConverter"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="ipEndPointSerializer"/> is <see langword="null"/>.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Communication.RemoteProcedureCall.LocalEndPoint`2.DefineLocalProcedure(System.Int32,Support.InputOutput.Communication.RemoteProcedureCall.LocalProcedureBase{`0,`1})">
+            <summary>
+            Defines a local procedure that would be invoked by a remote endpoint.
+            </summary>
+            <param name="key">The key of the local procedure.</param>
+            <param name="localProcedure">The local procedure.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="localProcedure"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.InvalidOperationException">A local procedure with a specified key already exists.</exception>
+        </member>
+        <member name="T:Support.InputOutput.Communication.RemoteProcedureCall.LocalProcedure`2">
+            <summary>
+            Represents a local procedure that has no parameters.
+            </summary>
+            <typeparam name="TIPEndPoint">The type of IP endpoints.</typeparam>
+            <typeparam name="TData">The type of connection data.</typeparam>
+        </member>
+        <member name="M:Support.InputOutput.Communication.RemoteProcedureCall.LocalProcedure`2.#ctor(System.Boolean,Support.InputOutput.Communication.RemoteProcedureCall.LocalProcedureAction{`0,`1})">
+            <summary>
+            Initializes the <see cref="T:Support.InputOutput.Communication.RemoteProcedureCall.LocalProcedure`2"/>.
+            </summary>
+            <param name="sync">If <see langword="true"/> and <see cref="P:System.Threading.SynchronizationContext.Current"/> existed when a local endpoint initializes the procedure is invoked in the <see cref="T:System.Threading.SynchronizationContext"/>; otherwise, the procedure is invoked asynchronously.</param>
+            <param name="action">An action that executes when the procedure is called.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="action"/> is <see langword="null"/>.</exception>
+        </member>
+        <member name="T:Support.InputOutput.Communication.RemoteProcedureCall.LocalProcedure`3">
+            <summary>
+            Represents a local procedure that has one parameter.
+            </summary>
+            <typeparam name="TIPEndPoint">The type of IP endpoints.</typeparam>
+            <typeparam name="TData">The type of connection data.</typeparam>
+            <typeparam name="T">The type of an argument that is passed for the procedure execution.</typeparam>
+        </member>
+        <member name="M:Support.InputOutput.Communication.RemoteProcedureCall.LocalProcedure`3.#ctor(System.Boolean,Support.InputOutput.Communication.RemoteProcedureCall.ParameterizedLocalProcedureAction{`0,`1,`2},Support.Coding.Serialization.ISerializer{`2},System.Func{`2,System.Boolean},System.Int32,System.Int32)">
+            <summary>
+            Initializes the <see cref="T:Support.InputOutput.Communication.RemoteProcedureCall.LocalProcedure`3"/>.
+            </summary>
+            <param name="sync">If <see langword="true"/> and <see cref="P:System.Threading.SynchronizationContext.Current"/> existed when a local endpoint initializes the procedure is invoked in the <see cref="T:System.Threading.SynchronizationContext"/>; otherwise, the procedure is invoked asynchronously.</param>
+            <param name="action">An action that executes when the procedure is called.</param>
+            <param name="argumentSerializer">An <see cref="T:Support.Coding.Serialization.ISerializer`1"/> to deserialize an argument for the local procedure execution.</param>
+            <param name="argumentValidator">A method to define whether a received argument is valid. If <see langword="true"/> a connection remote endpoint sends an invalid argument the connection would be disconnected.</param>
+            <param name="minArgumentLength">The minimum length of an argument to receive. If <see langword="true"/> a connection remote endpoint sends an argument which length is less than a specified value the connection would be disconnected.</param>
+            <param name="maxArgumentLength">The maximum length of an argument to receive. If <see langword="true"/> a connection remote endpoint sends an argument which length is greater than a specified value the connection would be disconnected.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="action"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="argumentSerializer"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="minArgumentLength"/> is less than 0.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="maxArgumentLength"/> is less than <paramref name="minArgumentLength"/>.</exception>
+        </member>
+        <member name="T:Support.InputOutput.Communication.RemoteProcedureCall.LocalProcedureAction`2">
+            <summary>
+            References a method to be executed when the local procedure is invoked by a remote endpoint.
+            </summary>
+            <typeparam name="TIPEndPoint">The type of IP endpoints.</typeparam>
+            <typeparam name="TData">The type of connection data.</typeparam>
+            <param name="connection">A connection that provides remote endpoint that have called the local procedure.</param>
+        </member>
+        <member name="T:Support.InputOutput.Communication.RemoteProcedureCall.LocalProcedureBase`2">
+            <summary>
+            Represents a local procedure that can be invoked remotely.
+            </summary>
+            <typeparam name="TIPEndPoint">The type of IP endpoints.</typeparam>
+            <typeparam name="TData">The type of connection data.</typeparam>
+        </member>
+        <member name="T:Support.InputOutput.Communication.RemoteProcedureCall.ParameterizedLocalProcedureAction`3">
+            <summary>
+            References a method to be executed when the local procedure is invoked by a remote endpoint.
+            </summary>
+            <typeparam name="TIPEndPoint">The type of IP endpoints.</typeparam>
+            <typeparam name="TData">The type of connection data.</typeparam>
+            <typeparam name="T">The type of an argument that is passed for the procedure execution.</typeparam>
+            <param name="connection">A connection that provides remote endpoint that have called the local procedure.</param>
+            <param name="argument">An argument that has been passed for the local procedure execution.</param>
+        </member>
+        <member name="T:Support.InputOutput.Communication.RemoteProcedureCall.RemoteProcedure">
+            <summary>
+            Represents a remote procedure that has no parameters.
+            </summary>
+        </member>
+        <member name="F:Support.InputOutput.Communication.RemoteProcedureCall.RemoteProcedure.Key">
+            <summary>
+            The key to call the remote procedure.
+            </summary>
+        </member>
+        <member name="M:Support.InputOutput.Communication.RemoteProcedureCall.RemoteProcedure.#ctor(System.Int32)">
+            <summary>
+            Initializes the <see cref="T:Support.InputOutput.Communication.RemoteProcedureCall.RemoteProcedure"/>.
+            </summary>
+            <param name="key">The key of the remote procedure.</param>
+        </member>
+        <member name="T:Support.InputOutput.Communication.RemoteProcedureCall.RemoteProcedure`1">
+            <summary>
+            Represents a remote procedure that has one parameter.
+            </summary>
+            <typeparam name="T">The type of an argument that is passed for the procedure execution.</typeparam>
+        </member>
+        <member name="F:Support.InputOutput.Communication.RemoteProcedureCall.RemoteProcedure`1.Key">
+            <summary>
+            The key to call the remote procedure.
+            </summary>
+        </member>
+        <member name="F:Support.InputOutput.Communication.RemoteProcedureCall.RemoteProcedure`1.ArgumentSerializer">
+            <summary>
+            The <see cref="T:Support.Coding.Serialization.ISerializer`1"/> to serialize an argument for the remote procedure call.
+            </summary>
+        </member>
+        <member name="M:Support.InputOutput.Communication.RemoteProcedureCall.RemoteProcedure`1.#ctor(System.Int32,Support.Coding.Serialization.ISerializer{`0})">
+            <summary>
+            Initializes the <see cref="T:Support.InputOutput.Communication.RemoteProcedureCall.RemoteProcedure`1"/>.
+            </summary>
+            <param name="key">The key of the remote procedure.</param>
+            <param name="argumentSerializer">An <see cref="T:Support.Coding.Serialization.ISerializer`1"/> to serialize an argument for the remote procedure call.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="argumentSerializer"/> is <see langword="null"/>.</exception>
+        </member>
+    </members>
+</doc>

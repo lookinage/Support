@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{843C7724-285E-43FF-B5A2-1249AAF41EE2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Noname.IO.ObjectOrientedDomain</RootNamespace>
+    <AssemblyName>Noname.IO.ObjectOrientedDomain</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <DocumentationFile>bin\Debug\Noname.IO.ObjectOrientedDomain.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Collections\CollectionValueManager.cs" />
+    <Compile Include="Collections\CollectionEntryConstantLength.cs" />
+    <Compile Include="Collections\CollectionEntryVariableLength.cs" />
+    <Compile Include="Collections\CollectionManager.cs" />
+    <Compile Include="Collections\CollectionManagerActivator.cs" />
+    <Compile Include="Collections\CollectionMeta.cs" />
+    <Compile Include="Collections\DictionaryElementManager.cs" />
+    <Compile Include="Collections\DictionaryElementManagerConstantLength.cs" />
+    <Compile Include="Collections\DictionaryElementManagerVariableLength.cs" />
+    <Compile Include="Collections\DictionaryEntryConstantLengthConstantLength.cs" />
+    <Compile Include="Collections\DictionaryEntryConstantLengthVariableLength.cs" />
+    <Compile Include="Collections\DictionaryEntryVariableLengthConstantLength.cs" />
+    <Compile Include="Collections\DictionaryEntryVariableLengthVariableLength.cs" />
+    <Compile Include="Collections\DictionaryManager.cs" />
+    <Compile Include="Collections\DictionaryManagerActivator.cs" />
+    <Compile Include="Collections\DictionaryManagerConstantLength.cs" />
+    <Compile Include="Collections\DictionaryManagerVariableLength.cs" />
+    <Compile Include="Collections\DictionaryMeta.cs" />
+    <Compile Include="DomainManager.cs" />
+    <Compile Include="IValueManager.cs" />
+    <Compile Include="ValueManager.cs" />
+    <Compile Include="ArrayManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Noname.IO.ManagedHeap\Noname.IO.ManagedHeap.csproj">
+      <Project>{B18BA74D-185C-483C-844C-DBBFEDBACD3D}</Project>
+      <Name>Noname.IO.ManagedHeap</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Noname.IO\Noname.IO.csproj">
+      <Project>{f3e1c1e6-61ed-4ee0-a69d-29d731d48a2f}</Project>
+      <Name>Noname.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Noname\Noname.csproj">
+      <Project>{95a5d098-a1b4-4951-9afe-eb2bc4ab230a}</Project>
+      <Name>Noname</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
