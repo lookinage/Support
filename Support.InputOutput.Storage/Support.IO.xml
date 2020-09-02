@@ -1,0 +1,218 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Support.InputOutput.Storage</name>
+    </assembly>
+    <members>
+        <member name="T:Support.InputOutput.Storage.LogStorage">
+            <summary>
+            Represents a storage for logging.
+            </summary>
+        </member>
+        <member name="M:Support.InputOutput.Storage.LogStorage.FromFile(System.Int64,System.String,System.Int32)">
+            <summary>
+            Initializes the <see cref="T:Support.InputOutput.Storage.LogStorage"/> class from a file.
+            </summary>
+            <param name="length">The length of the log.</param>
+            <param name="path">The path to the storage file.</param>
+            <param name="bufferSize">The size of the buffer of the file stream.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="length"/> is less than 0.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="path"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="bufferSize"/> is less than 1.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Storage.LogStorage.FromFile(System.Int64,System.String)">
+            <summary>
+            Initializes the <see cref="T:Support.InputOutput.Storage.LogStorage"/> class from a file.
+            </summary>
+            <param name="length">The length of the log.</param>
+            <param name="path">The path to the storage file.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="length"/> is less than 0.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="path"/> is <see langword="null"/>.</exception>
+        </member>
+        <member name="P:Support.InputOutput.Storage.LogStorage.Length">
+            <summary>
+            Gets the length of the log.
+            </summary>
+        </member>
+        <member name="M:Support.InputOutput.Storage.LogStorage.Read(System.Int64,System.Int32,System.Byte[],System.Int32)">
+            <summary>
+            Reads bytes from the log.
+            </summary>
+            <param name="position">The position of the bytes in the log.</param>
+            <param name="count">The number of the bytes.</param>
+            <param name="buffer">The buffer to contain the bytes.</param>
+            <param name="index">The position of the bytes in <paramref name="buffer"/>.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="position"/> is less than 0 or greater than the number of bytes of the log.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="count"/> is less than 0.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="count"/> is greater than the number of bytes from <paramref name="position"/> to the end of the log.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="buffer"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="index"/> is outside the range of valid indices of the <paramref name="buffer"/>.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="count"/> is greater than the number of bytes from <paramref name="index"/> to the end of <paramref name="buffer"/>.</exception>
+            <exception cref="T:System.ObjectDisposedException">The <see cref="T:Support.InputOutput.Storage.LogStorage"/> has been closed.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Storage.LogStorage.Write(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Writes bytes to the end of the log.
+            </summary>
+            <param name="buffer">The buffer to contain the bytes.</param>
+            <param name="index">The position of the bytes in <paramref name="buffer"/>.</param>
+            <param name="count">The number of the bytes.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="buffer"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="index"/> is outside the range of valid indices of the <paramref name="buffer"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="count"/> is less than 0.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="count"/> is greater than the number of bytes from <paramref name="index"/> to the end of <paramref name="buffer"/>.</exception>
+            <exception cref="T:System.ObjectDisposedException">The <see cref="T:Support.InputOutput.Storage.LogStorage"/> has been closed.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Storage.LogStorage.Commit">
+            <summary>
+            Commits the written bytes.
+            </summary>
+            <exception cref="T:System.ObjectDisposedException">The <see cref="T:Support.InputOutput.Storage.LogStorage"/> has been closed.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Storage.LogStorage.Close">
+            <summary>
+            Commits then closes the storage and releases all resources used by the <see cref="T:Support.InputOutput.Storage.LogStorage"/>.
+            </summary>
+        </member>
+        <member name="T:Support.InputOutput.Storage.RandomAccessStorage">
+            <summary>
+            Represents a storage that provides read from and write to random position.
+            </summary>
+        </member>
+        <member name="M:Support.InputOutput.Storage.RandomAccessStorage.FromFile(System.String,System.Int32)">
+            <summary>
+            Initializes the <see cref="T:Support.InputOutput.Storage.RandomAccessStorage"/> class from a file.
+            </summary>
+            <param name="path">The path to the storage file.</param>
+            <param name="bufferSize">The size of the buffer of the file stream.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="path"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="bufferSize"/> is less than 1.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Storage.RandomAccessStorage.FromFile(System.String)">
+            <summary>
+            Initializes the <see cref="T:Support.InputOutput.Storage.RandomAccessStorage"/> class from a file.
+            </summary>
+            <param name="path">The path to the storage file.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="path"/> is <see langword="null"/>.</exception>
+        </member>
+        <member name="P:Support.InputOutput.Storage.RandomAccessStorage.Size">
+            <summary>
+            Gets the size of the storage.
+            </summary>
+        </member>
+        <member name="M:Support.InputOutput.Storage.RandomAccessStorage.Read(System.Int64,System.Int32,System.Byte[],System.Int32)">
+            <summary>
+            Reads bytes from the storage.
+            </summary>
+            <param name="position">The position of the bytes in the storage.</param>
+            <param name="count">The number of the bytes.</param>
+            <param name="buffer">The buffer to contain the bytes.</param>
+            <param name="index">The position of the bytes in <paramref name="buffer"/>.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="position"/> is less than 0.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="count"/> is less than 0.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="count"/> is greater than the number of bytes from <paramref name="position"/> to the end of the storage.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="buffer"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="index"/> is outside the range of valid indices of the <paramref name="buffer"/>.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="count"/> is greater than the number of bytes from <paramref name="index"/> to the end of <paramref name="buffer"/>.</exception>
+            <exception cref="T:System.ObjectDisposedException">The <see cref="T:Support.InputOutput.Storage.RandomAccessStorage"/> has been closed.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Storage.RandomAccessStorage.Write(System.Byte[],System.Int32,System.Int32,System.Int64)">
+            <summary>
+            Writes bytes to the storage.
+            </summary>
+            <param name="buffer">The buffer to contain the bytes.</param>
+            <param name="index">The position of the bytes in <paramref name="buffer"/>.</param>
+            <param name="count">The number of the bytes.</param>
+            <param name="position">The position of the bytes in the storage.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="buffer"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="index"/> is outside the range of valid indices of the <paramref name="buffer"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="count"/> is less than 0.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="count"/> is greater than the number of bytes from <paramref name="index"/> to the end of <paramref name="buffer"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="position"/> is less than 0.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="count"/> is greater than the number of bytes from <paramref name="position"/> to the end of the storage.</exception>
+            <exception cref="T:System.ObjectDisposedException">The <see cref="T:Support.InputOutput.Storage.RandomAccessStorage"/> has been closed.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Storage.RandomAccessStorage.Commit">
+            <summary>
+            Commits the written bytes.
+            </summary>
+            <exception cref="T:System.ObjectDisposedException">The <see cref="T:Support.InputOutput.Storage.RandomAccessStorage"/> has been closed.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Storage.RandomAccessStorage.Close">
+            <summary>
+            Closes the storage and releases all resources used by the <see cref="T:Support.InputOutput.Storage.RandomAccessStorage"/>.
+            </summary>
+        </member>
+        <member name="T:Support.InputOutput.Storage.ReliableStorage">
+            <summary>
+            Represents a storage that provides reliable read and write of a value.
+            </summary>
+        </member>
+        <member name="M:Support.InputOutput.Storage.ReliableStorage.FromFile(System.String,System.Int32)">
+            <summary>
+            Initializes the <see cref="T:Support.InputOutput.Storage.ReliableStorage"/> class from a file.
+            </summary>
+            <param name="path">The path to the storage file.</param>
+            <param name="bufferSize">The size of the buffer of the file stream.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="path"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="bufferSize"/> is less than 1.</exception>
+            <exception cref="T:System.ArgumentException">Invalid storage format.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Storage.ReliableStorage.FromFile(System.String)">
+            <summary>
+            Initializes the <see cref="T:Support.InputOutput.Storage.ReliableStorage"/> class from a file.
+            </summary>
+            <param name="path">The path to the storage file.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="path"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentException">Invalid storage format.</exception>
+        </member>
+        <member name="P:Support.InputOutput.Storage.ReliableStorage.Length">
+            <summary>
+            Gets the length of the value.
+            </summary>
+        </member>
+        <member name="M:Support.InputOutput.Storage.ReliableStorage.Read(System.Byte[],System.Int32)">
+            <summary>
+            Reads the value from the storage.
+            </summary>
+            <param name="buffer">The buffer to contain the bytes of the value.</param>
+            <param name="index">The position of the bytes in <paramref name="buffer"/>.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="buffer"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="index"/> is outside the range of valid indices of the <paramref name="buffer"/>.</exception>
+            <exception cref="T:System.ArgumentException">The length of the value is greater than the number of bytes from <paramref name="index"/> to the end of <paramref name="buffer"/>.</exception>
+            <exception cref="T:System.ObjectDisposedException">The <see cref="T:Support.InputOutput.Storage.ReliableStorage"/> has been closed.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Storage.ReliableStorage.Write(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Writes the value to the storage.
+            </summary>
+            <param name="buffer">The buffer to contain the bytes of the value.</param>
+            <param name="index">The position of the bytes in <paramref name="buffer"/>.</param>
+            <param name="count">The number of the bytes.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="buffer"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="index"/> is outside the range of valid indices of the <paramref name="buffer"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="count"/> is less than 0.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="count"/> is greater than the number of bytes from <paramref name="index"/> to the end of <paramref name="buffer"/>.</exception>
+            <exception cref="T:System.ObjectDisposedException">The <see cref="T:Support.InputOutput.Storage.ReliableStorage"/> has been closed.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Storage.ReliableStorage.Close">
+            <summary>
+            Closes the storage and releases all resources used by the <see cref="T:Support.InputOutput.Storage.ReliableStorage"/>.
+            </summary>
+        </member>
+        <member name="T:Support.InputOutput.StreamHelper">
+            <summary>
+            Provides methods for <see cref="T:System.IO.Stream"/> instances manipulation.
+            </summary>
+        </member>
+        <member name="M:Support.InputOutput.StreamHelper.EnsureLength(System.IO.Stream,System.Int64)">
+            <summary>
+            Doubles the length of a specified stream while the length is less than a specified desired length. 
+            </summary>
+            <param name="stream">The stream which length is to be ensured.</param>
+            <param name="desiredLength">The desired length of the stream.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="stream"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="desiredLength"/> is less than 0.</exception>
+        </member>
+    </members>
+</doc>

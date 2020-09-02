@@ -7,10 +7,10 @@
     <OldToolsVersion>2.0</OldToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>D:\Development\Projects\Support\Support.InputOutput.Communication.RemoteProcedureCall\Support.InputOutput.Communication.RemoteProcedureCall.xml</DocumentationFile>
+    <DocumentationFile>Support.InputOutput.Communication.RemoteProcedureCall\Support.InputOutput.Communication.RemoteProcedureCall.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>D:\Development\Current\Projects\Support\Support.Net.RemoteProcedureCall\Support.Net.RemoteProcedureCall.xml</DocumentationFile>
+    <DocumentationFile>Support.InputOutput.Communication.RemoteProcedureCall\Support.InputOutput.Communication.RemoteProcedureCall.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Support.InputOutput.Communication\Support.InputOutput.Communication.csproj" />

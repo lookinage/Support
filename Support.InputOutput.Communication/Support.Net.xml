@@ -1,0 +1,499 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Support.InputOutput.Communication</name>
+    </assembly>
+    <members>
+        <member name="T:Support.InputOutput.Communication.Connection">
+            <summary>
+            Represents a connection that works via TCP.
+            </summary>
+        </member>
+        <member name="M:Support.InputOutput.Communication.Connection.#ctor(System.Net.IPEndPoint,System.Net.IPEndPoint)">
+            <summary>
+            Initializes the <see cref="T:Support.InputOutput.Communication.Connection"/>.
+            </summary>
+            <param name="localIPEndPoint">An <see cref="T:System.Net.IPEndPoint"/> to associate with a <see cref="T:System.Net.Sockets.Socket"/> to provide the connection.</param>
+            <param name="remoteIPEndPoint">An <see cref="T:System.Net.IPEndPoint"/> of the remote host to connect.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="localIPEndPoint"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="remoteIPEndPoint"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="remoteIPEndPoint"/> address family does not equal to <paramref name="localIPEndPoint"/> address family.</exception>
+            <exception cref="T:System.ObjectDisposedException">The <see cref="T:Support.InputOutput.Communication.Connection"/> has been closed.</exception>
+        </member>
+        <member name="P:Support.InputOutput.Communication.Connection.Connected">
+            <summary>
+            Gets a value that indicates whether the connection is working.
+            </summary>
+        </member>
+        <member name="P:Support.InputOutput.Communication.Connection.LocalIPEndPoint">
+            <summary>
+            Gets the local endpoint of the connection.
+            </summary>
+        </member>
+        <member name="P:Support.InputOutput.Communication.Connection.RemoteIPEndPoint">
+            <summary>
+            Gets the remote endpoint of the connection.
+            </summary>
+        </member>
+        <member name="P:Support.InputOutput.Communication.Connection.ReceiveBufferSize">
+            <summary>
+            Gets or sets a value of <see cref="P:System.Net.Sockets.Socket.ReceiveBufferSize"/> property of the <see cref="T:System.Net.Sockets.Socket"/> used by the <see cref="T:Support.InputOutput.Communication.Connection"/>.
+            </summary>
+            <exception cref="T:System.ArgumentOutOfRangeException">The specified value is less than 0.</exception>
+        </member>
+        <member name="P:Support.InputOutput.Communication.Connection.SendBufferSize">
+            <summary>
+            Gets or sets a value of <see cref="P:System.Net.Sockets.Socket.SendBufferSize"/> property of the <see cref="T:System.Net.Sockets.Socket"/> used by the <see cref="T:Support.InputOutput.Communication.Connection"/>.
+            </summary>
+            <exception cref="T:System.ArgumentOutOfRangeException">The specified value is less than 0.</exception>
+        </member>
+        <member name="E:Support.InputOutput.Communication.Connection.Received">
+            <summary>
+            Occurs when the awaiting bytes are received.
+            </summary>
+        </member>
+        <member name="E:Support.InputOutput.Communication.Connection.Lost">
+            <summary>
+            Occurs when the connection is lost.
+            </summary>
+        </member>
+        <member name="M:Support.InputOutput.Communication.Connection.Await(System.Int32)">
+            <summary>
+            Sets a number of bytes to await.
+            </summary>
+            <param name="count">The number of bytes to await.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="count"/> is less than 1.</exception>
+            <exception cref="T:System.InvalidOperationException">The method has been called when the awaited bytes are not received.</exception>
+            <exception cref="T:System.ObjectDisposedException">The <see cref="T:Support.InputOutput.Communication.Connection"/> has been closed.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Communication.Connection.Decrypt(System.Byte[],System.Int32,System.Int32,Support.Coding.Cryptography.ICipher)">
+            <summary>
+            Decrypts the received bytes.
+            </summary>
+            <param name="keyBuffer">The buffer to contain the key to decrypt the bytes.</param>
+            <param name="keyIndex">The position of the key in <paramref name="keyBuffer"/>.</param>
+            <param name="keyLength">The length of the key.</param>
+            <param name="cipher">An <see cref="T:Support.Coding.Cryptography.ICipher"/> to decrypt the received bytes.</param>
+            <exception cref="T:System.InvalidOperationException">The method has been called when the awaited bytes are not received.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="keyBuffer"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="keyIndex"/> is outside the range of valid indices of <paramref name="keyBuffer"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="keyLength"/> is less than 0.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="keyLength"/> is greater than the number of bytes from <paramref name="keyIndex"/> to the end of <paramref name="keyBuffer"/>.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="cipher"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ObjectDisposedException">The <see cref="T:Support.InputOutput.Communication.Connection"/> has been closed.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Communication.Connection.Get(System.Byte[],System.Int32)">
+            <summary>
+            Puts the received bytes to a specified buffer.
+            </summary>
+            <param name="buffer">The buffer to contain the bytes.</param>
+            <param name="index">The position of the bytes in <paramref name="buffer"/>.</param>
+            <exception cref="T:System.InvalidOperationException">The method has been called when the awaited bytes are not received.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="buffer"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="index"/> is outside the range of valid indices of <paramref name="buffer"/>.</exception>
+            <exception cref="T:System.ArgumentException">The number of the received bytes is greater than the number of bytes from <paramref name="index"/> to the end of <paramref name="buffer"/>.</exception>
+            <exception cref="T:System.ObjectDisposedException">The <see cref="T:Support.InputOutput.Communication.Connection"/> has been closed.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Communication.Connection.Get``1(Support.Coding.Serialization.ISerializer{``0})">
+            <summary>
+            Deserializes the received bytes to an instance.
+            </summary>
+            <typeparam name="T">The type of the instance.</typeparam>
+            <param name="serializer">An <see cref="T:Support.Coding.Serialization.ISerializer`1"/> to deserialize the received bytes.</param>
+            <returns>The deserialized instance.</returns>
+            <exception cref="T:System.InvalidOperationException">The method has been called when the awaited bytes are not received.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="serializer"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ObjectDisposedException">The <see cref="T:Support.InputOutput.Communication.Connection"/> has been closed.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Communication.Connection.Post(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Prepares a specified bytes to send.
+            </summary>
+            <param name="buffer">The buffer to contain the bytes.</param>
+            <param name="index">The position of the bytes in <paramref name="buffer"/>.</param>
+            <param name="count">The number of the bytes.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="buffer"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="index"/> is outside the range of valid indices of <paramref name="buffer"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="count"/> is less than 0.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="count"/> is greater than the number of bytes from the <paramref name="index"/> to the end of <paramref name="buffer"/>.</exception>
+            <exception cref="T:System.ObjectDisposedException">The <see cref="T:Support.InputOutput.Communication.Connection"/> has been closed.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Communication.Connection.Post``1(``0,Support.Coding.Serialization.ISerializer{``0})">
+            <summary>
+            Serializes a specified instance to a sequence of bytes and prepares the bytes to send.
+            </summary>
+            <typeparam name="T">The type of the instance.</typeparam>
+            <param name="instance">The instance to serialize.</param>
+            <param name="serializer">An <see cref="T:Support.Coding.Serialization.ISerializer`1"/> to serialize <paramref name="instance"/> to the bytes.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="serializer"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ObjectDisposedException">The <see cref="T:Support.InputOutput.Communication.Connection"/> has been closed.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Communication.Connection.Encrypt(System.Byte[],System.Int32,System.Int32,Support.Coding.Cryptography.ICipher)">
+            <summary>
+            Encrypts the posted bytes.
+            </summary>
+            <param name="keyBuffer">The buffer to contain the key to encrypt the bytes.</param>
+            <param name="keyIndex">The position of the key in <paramref name="keyBuffer"/>.</param>
+            <param name="keyLength">The length of the key.</param>
+            <param name="cipher">An <see cref="T:Support.Coding.Cryptography.ICipher"/> to encrypt the posted bytes.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="keyBuffer"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="keyIndex"/> is outside the range of valid indices of <paramref name="keyBuffer"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="keyLength"/> is less than 0.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="keyLength"/> is greater than the number of bytes from <paramref name="keyIndex"/> to the end of <paramref name="keyBuffer"/>.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="cipher"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ObjectDisposedException">The <see cref="T:Support.InputOutput.Communication.Connection"/> has been closed.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Communication.Connection.Send">
+            <summary>
+            Sends the posted bytes.
+            </summary>
+            <exception cref="T:System.ObjectDisposedException">The <see cref="T:Support.InputOutput.Communication.Connection"/> has been closed.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Communication.Connection.Close">
+            <summary>
+            Closes the connection and releases all resources used by the <see cref="T:Support.InputOutput.Communication.Connection"/>.
+            </summary>
+        </member>
+        <member name="T:Support.InputOutput.Communication.ConnectionAcceptedEventArgument">
+            <summary>
+            Provides data for the <see cref="E:Support.InputOutput.Communication.ConnectionListener.Accepted"/> event.
+            </summary>
+        </member>
+        <member name="F:Support.InputOutput.Communication.ConnectionAcceptedEventArgument.Connection">
+            <summary>
+            The accepted connection.
+            </summary>
+        </member>
+        <member name="M:Support.InputOutput.Communication.ConnectionAcceptedEventArgument.#ctor(Support.InputOutput.Communication.Connection)">
+            <summary>
+            Initializes the <see cref="T:Support.InputOutput.Communication.ConnectionAcceptedEventArgument"/>.
+            </summary>
+            <param name="connection">The accepted connection.</param>
+        </member>
+        <member name="T:Support.InputOutput.Communication.ConnectionListener">
+            <summary>
+            Represents a network endpoint that listens incoming connections using TCP.
+            </summary>
+        </member>
+        <member name="M:Support.InputOutput.Communication.ConnectionListener.#ctor(System.Net.IPEndPoint)">
+            <summary>
+            Initializes the <see cref="T:Support.InputOutput.Communication.ConnectionListener"/>.
+            </summary>
+            <param name="localIPEndPoint">An <see cref="T:System.Net.IPEndPoint"/> to associate with a <see cref="T:System.Net.Sockets.Socket"/> to listen incoming connections.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="localIPEndPoint"/> is <see langword="null"/>.</exception>
+        </member>
+        <member name="E:Support.InputOutput.Communication.ConnectionListener.Accepted">
+            <summary>
+            Occurs when a connection is accepted.
+            </summary>
+        </member>
+        <member name="M:Support.InputOutput.Communication.ConnectionListener.Listen(System.Int32)">
+            <summary>
+            Places the <see cref="T:Support.InputOutput.Communication.ConnectionListener"/> in a listening state to accept connections.
+            </summary>
+            <param name="backlog">The maximum length of the pending connection queue.</param>
+            <exception cref="T:System.ObjectDisposedException">The <see cref="T:Support.InputOutput.Communication.ConnectionListener"/> has been closed.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Communication.ConnectionListener.Close">
+            <summary>
+            Stops accepting of connections and closes all accepted connections.
+            </summary>
+        </member>
+        <member name="T:Support.InputOutput.Communication.ConnectionLostEventArgument">
+            <summary>
+            Provides data for the <see cref="E:Support.InputOutput.Communication.Connection.Lost"/> event.
+            </summary>
+        </member>
+        <member name="F:Support.InputOutput.Communication.ConnectionLostEventArgument.Error">
+            <summary>
+            The <see cref="T:System.Net.Sockets.SocketError"/> because of which the connection has been lost.
+            </summary>
+        </member>
+        <member name="M:Support.InputOutput.Communication.ConnectionLostEventArgument.#ctor(System.Net.Sockets.SocketError)">
+            <summary>
+            Initializes the <see cref="T:Support.InputOutput.Communication.ConnectionAcceptedEventArgument"/>.
+            </summary>
+            <param name="error">The <see cref="T:System.Net.Sockets.SocketError"/> because of which the connection has been lost.</param>
+        </member>
+        <member name="T:Support.InputOutput.Communication.LocalEndPoint">
+            <summary>
+            Represents a network endpoint that sends and receives data via udp protocol.
+            </summary>
+        </member>
+        <member name="M:Support.InputOutput.Communication.LocalEndPoint.#ctor(System.Net.IPEndPoint)">
+            <summary>
+            Initializes the <see cref="T:Support.InputOutput.Communication.LocalEndPoint"/>.
+            </summary>
+            <param name="localIPEndPoint">The <see cref="T:System.Net.IPEndPoint"/> to associate with the <see cref="T:System.Net.Sockets.Socket"/>.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="localIPEndPoint"/> is <see langword="null"/>.</exception>
+        </member>
+        <member name="P:Support.InputOutput.Communication.LocalEndPoint.LocalIPEndPoint">
+            <summary>
+            Gets the <see cref="T:System.Net.IPEndPoint"/> the <see cref="T:Support.InputOutput.Communication.LocalEndPoint"/> associated with.
+            </summary>
+        </member>
+        <member name="P:Support.InputOutput.Communication.LocalEndPoint.RemoteIPEndPoint">
+            <summary>
+            Gets the <see cref="T:System.Net.IPEndPoint"/> of the endpoint the received bytes have been received from.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">The method has been called when there are no received bytes.</exception>
+        </member>
+        <member name="P:Support.InputOutput.Communication.LocalEndPoint.Available">
+            <summary>
+            Gets the number of received bytes which are available to get.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">The method has been called when there are no received bytes.</exception>
+        </member>
+        <member name="E:Support.InputOutput.Communication.LocalEndPoint.Received">
+            <summary>
+            Occurs when bytes are received.
+            </summary>
+        </member>
+        <member name="M:Support.InputOutput.Communication.LocalEndPoint.Get(System.Int32,System.Byte[],System.Int32)">
+            <summary>
+            Puts a specified available bytes to a specified buffer.
+            </summary>
+            <param name="count">The number of the bytes to put.</param>
+            <param name="buffer">The buffer to contain the bytes.</param>
+            <param name="index">The position of the bytes in <paramref name="buffer"/>.</param>
+            <exception cref="T:System.InvalidOperationException">The method has been called when the awaited bytes are not received.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="count"/> is less than 0.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="count"/> is greater than the number of the available bytes.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="buffer"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="index"/> is outside the range of valid indices of <paramref name="buffer"/>.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="count"/> is greater than the number of bytes from <paramref name="index"/> to the end of <paramref name="buffer"/>.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Communication.LocalEndPoint.Get(System.Byte[],System.Int32)">
+            <summary>
+            Puts the available bytes to a specified buffer.
+            </summary>
+            <param name="buffer">The buffer to contain the bytes.</param>
+            <param name="index">The position of the bytes in <paramref name="buffer"/>.</param>
+            <exception cref="T:System.InvalidOperationException">The method has been called when the awaited bytes are not received.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="buffer"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="index"/> is outside the range of valid indices of <paramref name="buffer"/>.</exception>
+            <exception cref="T:System.ArgumentException">The number of the available bytes is greater than the number of bytes from <paramref name="index"/> to the end of <paramref name="buffer"/>.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Communication.LocalEndPoint.Get``1(System.Int32,Support.Coding.Serialization.ISerializer{``0})">
+            <summary>
+            Deserializes a specified available bytes to an instance.
+            </summary>
+            <typeparam name="T">The type of the instance.</typeparam>
+            <param name="count">The number of the bytes to deserialize.</param>
+            <param name="serializer">An <see cref="T:Support.Coding.Serialization.ISerializer`1"/> to deserialize the available bytes.</param>
+            <returns>The deserialized instance.</returns>
+            <exception cref="T:System.InvalidOperationException">The method has been called when the awaited bytes are not received.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="count"/> is less than 0.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="count"/> is greater than the number of the available bytes.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="serializer"/> is <see langword="null"/>.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Communication.LocalEndPoint.Get``1(Support.Coding.Serialization.ISerializer{``0})">
+            <summary>
+            Deserializes the available bytes to an instance.
+            </summary>
+            <typeparam name="T">The type of the instance.</typeparam>
+            <param name="serializer">An <see cref="T:Support.Coding.Serialization.ISerializer`1"/> to deserialize the available bytes.</param>
+            <returns>The deserialized instance.</returns>
+            <exception cref="T:System.InvalidOperationException">The method has been called when the awaited bytes are not received.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="serializer"/> is <see langword="null"/>.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Communication.LocalEndPoint.Get``1(Support.Coding.Serialization.IConstantLengthSerializer{``0})">
+            <summary>
+            Deserializes a specified available bytes to an instance.
+            </summary>
+            <typeparam name="T">The type of the instance.</typeparam>
+            <param name="serializer">An <see cref="T:Support.Coding.Serialization.IConstantLengthSerializer`1"/> to deserialize the available bytes.</param>
+            <returns>The deserialized instance.</returns>
+            <exception cref="T:System.InvalidOperationException">The method has been called when the awaited bytes are not received.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="serializer"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentException">The number of bytes required for the deserialization is less than 0.</exception>
+            <exception cref="T:System.ArgumentException">The number of bytes required for the deserialization is greater than the number of the available bytes.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Communication.LocalEndPoint.Get(System.Int32,System.Byte[],System.Int32,System.Byte[],System.Int32,System.Int32,Support.Coding.Cryptography.ICipher)">
+            <summary>
+            Decrypts a specified available bytes then puts the bytes to a specified buffer.
+            </summary>
+            <param name="count">The number of the bytes to decrypt.</param>
+            <param name="buffer">The buffer to contain the decrypted bytes.</param>
+            <param name="index">The position of the decrypted bytes in <paramref name="buffer"/>.</param>
+            <param name="keyBuffer">The buffer to contain the key to decrypt the bytes.</param>
+            <param name="keyIndex">The position of the key in <paramref name="keyBuffer"/>.</param>
+            <param name="keyLength">The length of the key.</param>
+            <param name="cipher">An <see cref="T:Support.Coding.Cryptography.ICipher"/> to decrypt the available bytes.</param>
+            <exception cref="T:System.InvalidOperationException">The method has been called when the awaited bytes are not received.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="count"/> is less than 0.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="count"/> is greater than the number of the available bytes.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="buffer"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="index"/> is outside the range of valid indices of <paramref name="buffer"/>.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="count"/> is greater than the number of bytes from <paramref name="index"/> to the end of <paramref name="buffer"/>.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="keyBuffer"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="keyIndex"/> is outside the range of valid indices of <paramref name="keyBuffer"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="keyLength"/> is less than 0.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="keyLength"/> is greater than the number of bytes from <paramref name="keyIndex"/> to the end of <paramref name="keyBuffer"/>.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="cipher"/> is <see langword="null"/>.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Communication.LocalEndPoint.Get(System.Byte[],System.Int32,System.Byte[],System.Int32,System.Int32,Support.Coding.Cryptography.ICipher)">
+            <summary>
+            Decrypts the available bytes and puts then puts the bytes to a specified buffer.
+            </summary>
+            <param name="buffer">The buffer to contain the decrypted bytes.</param>
+            <param name="index">The position of the decrypted bytes in <paramref name="buffer"/>.</param>
+            <param name="keyBuffer">The buffer to contain the key to decrypt the bytes.</param>
+            <param name="keyIndex">The position of the key in <paramref name="keyBuffer"/>.</param>
+            <param name="keyLength">The length of the key.</param>
+            <param name="cipher">An <see cref="T:Support.Coding.Cryptography.ICipher"/> to decrypt the available bytes.</param>
+            <exception cref="T:System.InvalidOperationException">The method has been called when the awaited bytes are not received.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="buffer"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="index"/> is outside the range of valid indices of <paramref name="buffer"/>.</exception>
+            <exception cref="T:System.ArgumentException">The number of the available bytes is greater than the number of bytes from <paramref name="index"/> to the end of <paramref name="buffer"/>.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="keyBuffer"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="keyIndex"/> is outside the range of valid indices of <paramref name="keyBuffer"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="keyLength"/> is less than 0.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="keyLength"/> is greater than the number of bytes from <paramref name="keyIndex"/> to the end of <paramref name="keyBuffer"/>.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="cipher"/> is <see langword="null"/>.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Communication.LocalEndPoint.Get``1(System.Int32,Support.Coding.Serialization.ISerializer{``0},System.Byte[],System.Int32,System.Int32,Support.Coding.Cryptography.ICipher)">
+            <summary>
+            Decrypts a specified available bytes then deserializes the bytes to an instance.
+            </summary>
+            <typeparam name="T">The type of the instance.</typeparam>
+            <param name="count">The number of bytes to decrypt.</param>
+            <param name="serializer">An <see cref="T:Support.Coding.Serialization.ISerializer`1"/> to deserialize the decrypted bytes.</param>
+            <param name="keyBuffer">The buffer to contain the key to decrypt the bytes.</param>
+            <param name="keyIndex">The position of the key in <paramref name="keyBuffer"/>.</param>
+            <param name="keyLength">The length of the key.</param>
+            <param name="cipher">An <see cref="T:Support.Coding.Cryptography.ICipher"/> to decrypt the available bytes.</param>
+            <returns>The deserialized instance.</returns>
+            <exception cref="T:System.InvalidOperationException">The method has been called when the awaited bytes are not received.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="count"/> is less than 0.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="count"/> is greater than the number of the available bytes.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="serializer"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="keyBuffer"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="keyIndex"/> is outside the range of valid indices of <paramref name="keyBuffer"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="keyLength"/> is less than 0.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="keyLength"/> is greater than the number of bytes from <paramref name="keyIndex"/> to the end of <paramref name="keyBuffer"/>.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="cipher"/> is <see langword="null"/>.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Communication.LocalEndPoint.Get``1(Support.Coding.Serialization.ISerializer{``0},System.Byte[],System.Int32,System.Int32,Support.Coding.Cryptography.ICipher)">
+            <summary>
+            Decrypts the available bytes then deserializes the bytes to an instance.
+            </summary>
+            <typeparam name="T">The type of the instance.</typeparam>
+            <param name="serializer">An <see cref="T:Support.Coding.Serialization.ISerializer`1"/> to deserialize the decrypted bytes.</param>
+            <param name="keyBuffer">The buffer to contain the key to decrypt the bytes.</param>
+            <param name="keyIndex">The position of the key in <paramref name="keyBuffer"/>.</param>
+            <param name="keyLength">The length of the key.</param>
+            <param name="cipher">An <see cref="T:Support.Coding.Cryptography.ICipher"/> to decrypt the available bytes.</param>
+            <returns>The deserialized instance.</returns>
+            <exception cref="T:System.InvalidOperationException">The method has been called when the awaited bytes are not received.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="serializer"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="keyBuffer"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="keyIndex"/> is outside the range of valid indices of <paramref name="keyBuffer"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="keyLength"/> is less than 0.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="keyLength"/> is greater than the number of bytes from <paramref name="keyIndex"/> to the end of <paramref name="keyBuffer"/>.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="cipher"/> is <see langword="null"/>.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Communication.LocalEndPoint.Decrypt``1(Support.Coding.Serialization.IConstantLengthSerializer{``0},System.Byte[],System.Int32,System.Int32,Support.Coding.Cryptography.ICipher)">
+            <summary>
+            Decrypts a specified available bytes then deserializes the bytes to an instance.
+            </summary>
+            <typeparam name="T">The type of the instance.</typeparam>
+            <param name="serializer">An <see cref="T:Support.Coding.Serialization.ISerializer`1"/> to deserialize the decrypted bytes.</param>
+            <param name="keyBuffer">The buffer to contain the key to decrypt the bytes.</param>
+            <param name="keyIndex">The position of the key in <paramref name="keyBuffer"/>.</param>
+            <param name="keyLength">The length of the key.</param>
+            <param name="cipher">An <see cref="T:Support.Coding.Cryptography.ICipher"/> to decrypt the available bytes.</param>
+            <returns>The deserialized instance.</returns>
+            <exception cref="T:System.InvalidOperationException">The method has been called when the awaited bytes are not received.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="serializer"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentException">The number of bytes required for the deserialization is less than 0.</exception>
+            <exception cref="T:System.ArgumentException">The number of bytes required for the deserialization is greater than the number of the available bytes.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="keyBuffer"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="keyIndex"/> is outside the range of valid indices of <paramref name="keyBuffer"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="keyLength"/> is less than 0.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="keyLength"/> is greater than the number of bytes from <paramref name="keyIndex"/> to the end of <paramref name="keyBuffer"/>.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="cipher"/> is <see langword="null"/>.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Communication.LocalEndPoint.Skip(System.Int32)">
+            <summary>
+            Skips a specified number of the available bytes.
+            </summary>
+            <param name="count">A number of the available bytes to skip.</param>
+            <exception cref="T:System.InvalidOperationException">The method has been called when there are no received bytes.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="count"/> is less than 0.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="count"/> is greater than the number of the available bytes.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Communication.LocalEndPoint.Post(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Prepares a specified bytes to send.
+            </summary>
+            <param name="buffer">The buffer to contain the bytes.</param>
+            <param name="index">The position of the bytes in <paramref name="buffer"/>.</param>
+            <param name="count">The number of the bytes.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="buffer"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="index"/> is outside the range of valid indices of <paramref name="buffer"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="count"/> is less than 0.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="count"/> is greater than the number of bytes from the <paramref name="index"/> to the end of <paramref name="buffer"/>.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Communication.LocalEndPoint.Post``1(``0,Support.Coding.Serialization.ISerializer{``0})">
+            <summary>
+            Serializes a specified instance to a sequence of bytes and prepares the bytes to send.
+            </summary>
+            <typeparam name="T">The type of the instance.</typeparam>
+            <param name="instance">The instance to serialize.</param>
+            <param name="serializer">An <see cref="T:Support.Coding.Serialization.ISerializer`1"/> to serialize <paramref name="instance"/> to the bytes.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="serializer"/> is <see langword="null"/>.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Communication.LocalEndPoint.Post(System.Byte[],System.Int32,System.Int32,System.Byte[],System.Int32,System.Int32,Support.Coding.Cryptography.ICipher)">
+            <summary>
+            Encrypts a specified bytes then prepares the bytes to send.
+            </summary>
+            <param name="buffer">The buffer to contain the bytes.</param>
+            <param name="index">The position of the bytes in <paramref name="buffer"/>.</param>
+            <param name="count">The number of the bytes.</param>
+            <param name="keyBuffer">The buffer to contain the key to encrypt the bytes.</param>
+            <param name="keyIndex">The position of the key in <paramref name="keyBuffer"/>.</param>
+            <param name="keyLength">The length of the key.</param>
+            <param name="cipher">An <see cref="T:Support.Coding.Cryptography.ICipher"/> to decrypt the available bytes.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="buffer"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="index"/> is outside the range of valid indices of <paramref name="buffer"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="count"/> is less than 0.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="count"/> is greater than the number of bytes from <paramref name="index"/> to the end of <paramref name="buffer"/>.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="keyBuffer"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="keyIndex"/> is outside the range of valid indices of <paramref name="keyBuffer"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="keyLength"/> is less than 0.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="keyLength"/> is greater than the number of bytes from <paramref name="keyIndex"/> to the end of <paramref name="keyBuffer"/>.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="cipher"/> is <see langword="null"/>.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Communication.LocalEndPoint.Post``1(``0,Support.Coding.Serialization.ISerializer{``0},System.Byte[],System.Int32,System.Int32,Support.Coding.Cryptography.ICipher)">
+            <summary>
+            Serializes a specified instance to a sequence of bytes then encrypts then prepares the bytes to send.
+            </summary>
+            <typeparam name="T">The type of the instance.</typeparam>
+            <param name="instance">The instance to serialize.</param>
+            <param name="serializer">An <see cref="T:Support.Coding.Serialization.ISerializer`1"/> to serialize <paramref name="instance"/> to the bytes.</param>
+            <param name="keyBuffer">The buffer to contain the key to decrypt the bytes.</param>
+            <param name="keyIndex">The position of the key in <paramref name="keyBuffer"/>.</param>
+            <param name="keyLength">The length of the key.</param>
+            <param name="cipher">An <see cref="T:Support.Coding.Cryptography.ICipher"/> to decrypt the available bytes.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="serializer"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="keyBuffer"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="keyIndex"/> is outside the range of valid indices of <paramref name="keyBuffer"/>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="keyLength"/> is less than 0.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="keyLength"/> is greater than the number of bytes from <paramref name="keyIndex"/> to the end of <paramref name="keyBuffer"/>.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="cipher"/> is <see langword="null"/>.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Communication.LocalEndPoint.Send(System.Net.IPEndPoint)">
+            <summary>
+            Sends the posted bytes.
+            </summary>
+            <param name="remoteEndPoint">An <see cref="T:System.Net.IPEndPoint"/> the posted bytes are to be sent to.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="remoteEndPoint"/> is <see langword="null"/>.</exception>
+        </member>
+        <member name="M:Support.InputOutput.Communication.LocalEndPoint.Close">
+            <summary>
+            Releases all resources used by the <see cref="T:Support.InputOutput.Communication.LocalEndPoint"/>.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -7,10 +7,10 @@
     <OldToolsVersion>2.0</OldToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>D:\Development\Projects\Support\Support.InputOutput.Storage\Support.InputOutput.Storage.xml</DocumentationFile>
+    <DocumentationFile>Support.InputOutput.Storage.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>D:\Development\Current\Projects\Support\Support.IO\Support.IO.xml</DocumentationFile>
+    <DocumentationFile>Support.InputOutput.Storage.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Support\Support.csproj" />

@@ -8,10 +8,10 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <DocumentationFile>D:\Development\Projects\Support\Support.InputOutput.Communication\Support.InputOutput.Communication.xml</DocumentationFile>
+    <DocumentationFile>Support.InputOutput.Communication.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>D:\Development\Current\Projects\Support\Support.Net\Support.Net.xml</DocumentationFile>
+    <DocumentationFile>Support.InputOutput.Communication.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Support\Support.csproj" />

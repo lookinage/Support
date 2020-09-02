@@ -216,6 +216,8 @@ namespace Support.InputOutput.Communication
 							return null;
 						count = _socket.Send(_sendBuffer, _sentCount, _sendCount - _sentCount, SocketFlags.None, out error);
 					}
+					if (error == SocketError.WouldBlock)
+						break;
 					if (error != SocketError.Success)
 					{
 						InvokeLost(error);

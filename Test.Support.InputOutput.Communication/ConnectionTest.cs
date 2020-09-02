@@ -5,6 +5,7 @@ using Support.InputOutput.Communication;
 using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
 
 namespace Test.Support.InputOutput.Communication
 {
@@ -20,7 +21,7 @@ namespace Test.Support.InputOutput.Communication
 			const int serverPort = 0x100;
 			_serverLocalEndPoint = new IPEndPoint(IPAddress.Any, serverPort);
 			_clientLocalEndPoint = new IPEndPoint(IPAddress.Any, IPEndPoint.MinPort);
-			_clientRemoteEndPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), serverPort);
+			_clientRemoteEndPoint = new IPEndPoint(IPAddress.Parse("192.168.1.246"), serverPort);
 		}
 
 		[TestMethod]
@@ -117,6 +118,25 @@ namespace Test.Support.InputOutput.Communication
 				listener.Listen(0x10);
 				using (Connection connection = new Connection(_clientLocalEndPoint, _clientRemoteEndPoint))
 					connection.Send();
+			}
+		}
+		[TestMethod]
+		public void CommonTest()
+		{
+			using (ConnectionListener listener = new ConnectionListener(_serverLocalEndPoint))
+			{
+				listener.Listen(0x10);
+				using (Connection connection = new Connection(_clientLocalEndPoint, _clientRemoteEndPoint))
+				{
+					byte[] buffer = new byte[0x1000000];
+					connection.Post(buffer, 0, buffer.Length);
+					connection.Send();
+					connection.Post(buffer, 0, buffer.Length);
+					connection.Send();
+					connection.Post(buffer, 0, buffer.Length);
+					connection.Send();
+					Thread.Sleep(1000000);
+				}
 			}
 		}
 	}
